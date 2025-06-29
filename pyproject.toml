@@ -1,0 +1,3 @@
+[tool.pylint.'MAIN']
+disable = ["invalid-name","line-too-long","missing-function-docstring"]
+
