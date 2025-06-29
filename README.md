@@ -29,7 +29,7 @@ One can also run individual scripts, see `post.sh` for usage.
 
 ## Screenshot
 
-![screenshot.png)(screenshot.png)
+![screenshot.png](screenshot.png)
 
 This is the TUI for editing metadata.
 
