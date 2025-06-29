@@ -27,4 +27,12 @@ One can also run individual scripts, see `post.sh` for usage.
 * Created: 29-Jun-2025
 * Author: [Harrison Page](https://harrison.page) <harrison.page@harrison.page>
 
+## Screenshot
+
+![screenshot.jpg)(screenshot.jpg)
+
+This is the TUI for editing metadata.
+
 ![1947.jpg](1947.jpg)
+
+Anonymous photography, San Francisco, 1947
