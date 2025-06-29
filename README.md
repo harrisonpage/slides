@@ -29,9 +29,11 @@ One can also run individual scripts, see `post.sh` for usage.
 
 ## Screenshot
 
-![screenshot.jpg)(screenshot.jpg)
+![screenshot.png)(screenshot.png)
 
 This is the TUI for editing metadata.
+
+## Example Image
 
 ![1947.jpg](1947.jpg)
 
