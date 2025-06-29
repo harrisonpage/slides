@@ -3,6 +3,8 @@
 set -e
 cd "$(dirname "$0")"
 
+. .venv/bin/activate
+
 die () {
     echo >&2 "$@"
     exit 1
