@@ -186,7 +186,7 @@ def main() -> int:
     print(f"📅 {now}")
 
     url = f"""https://archive.org/details/{identifier}"""
-    buf = url
+    buf = url + " https://harrison.photography/way-we-was/"
     if 'date' in data and data['date'] != "":
         buf = data['date'] + "\n\n" + url
     buf += "\n\n"
