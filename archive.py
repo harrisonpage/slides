@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+#
+# Upload images to Internet Archive
+#
 
 import argparse
 import datetime
@@ -91,7 +94,7 @@ print("📂 Archiving:", identifier)
 # https://archive.org/developers/metadata-schema/index.html
 metadata = {
     'mediatype': 'image',
-    'collection': 'opensource_media',
+    'collection': 'way-we-was',
     'creator': 'Anonymous',
     'contributor': "Harrison Page <harrison@fogbelt.org>",
     'description': data.get("description"),
