@@ -186,7 +186,7 @@ def main() -> int:
     print(f"📅 {now}")
 
     url = f"""https://archive.org/details/{identifier}"""
-    buf = url + " https://harrison.photography/way-we-was/"
+    buf = url
     if 'date' in data and data['date'] != "":
         buf = data['date'] + "\n\n" + url
     buf += "\n\n"
@@ -201,7 +201,8 @@ def main() -> int:
             t = f'#{tag} '
             buf += t
 
-    buf += "#35mm #scan #vernacular #found #anonymous #photography #history"
+    buf += "#35mm #scan #vernacular #found #anonymous #photography #history\n\n"
+    buf += "https://harrison.photography/way-we-was/"
 
     facets = generate_facets_from_links_and_hashtags_in_text(buf)
     post = {
