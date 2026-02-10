@@ -23,7 +23,7 @@ One can also run individual scripts, see `post.sh` for usage.
 
 ## Features
 
-* Asks OpenAI for a title, description and tags for a set of images, to be used in metadata and alt-text
+* Given a set of images, asks local LLM for a description used in metadata and alt-text
 * TUI to apply edits
 
 ## Notes

@@ -1,5 +1,4 @@
 internetarchive
-openai
 atproto
 Pillow
 textual
