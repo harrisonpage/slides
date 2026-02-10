@@ -5,6 +5,14 @@ Automation for posting 35mm slide images to various places:
 * [Internet Archive](https://archive.org/details/@harrisonpage)
 * [Bluesky](https://bsky.app/profile/harrison.page)
 
+## Prerequisites
+
+1. Scan image with `QuickScan Plus OF8300i.app` (3600 dpi, color, 48-bit) into `/Users/harrison/Documents/QuickScanPlus_Doc`
+2. Open image in Photoshop and adjust as necessary: rotate, Auto Tone, Auto Contrast, Auto Color
+3. Save as 1920x JPEG
+4. Run `post.sh` against the JPEG
+5. Move image to numbered archive folder in `/Users/harrison/scans/` 
+
 ## Usage
 
 ```bash
@@ -20,7 +28,7 @@ One can also run individual scripts, see `post.sh` for usage.
 
 ## Notes
 
-* All credentials (OpenAI API key, Bluesky account info) stored in environment variables
+* External credentials (Bluesky account info) stored in environment variables
 
 ## About
 

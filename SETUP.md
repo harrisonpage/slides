@@ -17,10 +17,6 @@ ia configure
 
 ## Environment Variables
 
-### Required
-
-* *OPENAI_API_KEY*
-
 ### Optional
 
 * *BLUESKY_HANDLE*
