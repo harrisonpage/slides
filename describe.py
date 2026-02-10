@@ -8,11 +8,11 @@ import os
 import time
 import hashlib
 import pprint
-from typing import cast
-import openai
-from openai.types.chat import ChatCompletionMessageParam
+import requests
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+CUSTOM_LLM_URL = "http://100.75.10.104:8000/api/alt-text"
+CUSTOM_LLM_AUTH_HEADER = "GHOSTS_IN_THE_AIR_CONDITIONING"
+
 
 BASE_PROMPT = """You will be shown multiple scanned 35mm slide images. Please analyze them together for archival metadata and alt-text purposes.
 
@@ -83,21 +83,27 @@ print(f"💾 File: {json_path}")
 os.makedirs("data", exist_ok=True)
 
 try:
-    print("💾 Connecting to OpenAI...")
-    client = openai.OpenAI()
-    messages = cast(list[ChatCompletionMessageParam], [
-        {
-            "role": "user",
-            "content": [{"type": "text", "text": BASE_PROMPT + CUSTOM_PROMPT}] + image_payloads,
-        }
-    ])
+    print("💾 Connecting to custom LLM...")
+    print(f"URL: {CUSTOM_LLM_URL}")
+    print(f"Auth header value: {CUSTOM_LLM_AUTH_HEADER}")
+    with open(path, 'rb') as f:
+        files = {'image': f}
+        headers = {'X-Authorization': CUSTOM_LLM_AUTH_HEADER}
 
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=messages,
-    )
+        print(f"Headers being sent: {headers}")
+        response = requests.post(
+            CUSTOM_LLM_URL,
+            headers=headers,
+            files=files
+        )
+        print(f"Response status: {response.status_code}")
+        response.raise_for_status()
 
-    content = response.choices[0].message.content
+        content = response.text.strip()
+
+        if not content:
+            print("❌ No content returned.", file=sys.stderr)
+            sys.exit(1)
 
     if not content:
         print("❌ No content returned.", file=sys.stderr)
@@ -107,35 +113,16 @@ try:
     content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content.strip(), flags=re.IGNORECASE)
 
     try:
-        data = json.loads(content)
-        pprint.pprint(data)
-        title = data.get("title", "").strip()
-        description = data.get("description", "").strip()
-        color = data.get("color", "").strip()
-
-        if not title or not description or color not in ("color", "B&W"):
-            print("❌ Incomplete or invalid metadata received.", file=sys.stderr)
-            sys.exit(1)
+        description = content
 
         metadata = {
-            "title": title,
+            "title": "",
             "description": description,
-            "color": color,
+            "color": "color",
             "images": image_paths,
             "hash": hash_id,
             "ts": time.time(),
         }
-
-        if (data.get("date", "") != ""):
-            metadata['date'] = data.get('date')
-
-        tags = data.get('tags', "")
-        if isinstance(tags, str):
-            print("😰 Tags returned as strings for some goddamn reason")
-            tags = tags.split(", ")
-
-        if len(tags):
-            metadata['tags'] = tags
 
         with open(json_path, "w") as f:
             json.dump(metadata, f, indent=2)
