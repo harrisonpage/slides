@@ -185,10 +185,16 @@ def main() -> int:
 
     print(f"📅 {now}")
 
-    url = f"""https://archive.org/details/{identifier}"""
-    buf = url
+    chunks = []
+    if 'title' in data and data['title'] != "":
+        chunks.append(data['title'])
+
     if 'date' in data and data['date'] != "":
-        buf = data['date'] + "\n\n" + url
+        chunks.append(data['date'])
+
+    url = f"""https://archive.org/details/{identifier}"""
+    chunks.append(url)
+    buf = "\n\n".join(chunks)
     buf += "\n\n"
 
     if 'tags' in data and len(data['tags']):
@@ -201,8 +207,14 @@ def main() -> int:
             t = f'#{tag} '
             buf += t
 
-    buf += "#35mm #scan #vernacular #found #anonymous #photography #history\n\n"
-    buf += "https://harrison.photography/way-we-was/"
+
+    tags = "#35mm #scan #vernacular #found #anonymous #photography #history\n\n"
+    if len(buf + tags + "\n\n") < 300:
+        buf += tags + "\n\n"
+
+    blog_post_url = "https://harrison.photography/way-we-was/"
+    if len(buf + blog_post_url) < 300:
+        buf += blog_post_url
 
     facets = generate_facets_from_links_and_hashtags_in_text(buf)
     post = {
