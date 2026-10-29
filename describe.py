@@ -10,7 +10,7 @@ import hashlib
 import pprint
 import requests
 
-CUSTOM_LLM_URL = "http://100.75.10.104:8000/api/alt-text"
+CUSTOM_LLM_URL = "https://gabbo.fish-gray.ts.net/api/alt-text"
 CUSTOM_LLM_AUTH_HEADER = "GHOSTS_IN_THE_AIR_CONDITIONING"
 
 
